@@ -26,6 +26,7 @@
       font-family: 'Montserrat', sans-serif;
       /* Фон с повторяющимся узором из файла 4.jpg */
       background: var(--bg-color) url("4.jpg") repeat center center;
+      /* Задаём размер плитки – 600px по ширине, высота подбирается автоматически */
       background-size: 600px auto;
       color: var(--text-color);
       line-height: 1.6;
@@ -36,7 +37,7 @@
       max-width: 960px;
       margin: 0 auto;
       padding: 20px;
-      background: rgba(255, 255, 255,1);
+      background: rgba(255, 255, 255, 1);
       border-radius: 10px;
     }
     h1, h2, p {
@@ -48,16 +49,16 @@
       text-align: center;
       color: var(--accent);
     }
-    /* В заголовке вместо подписи вставляем изображение */
+    /* Заголовок: вместо текста "Сүйіспеншілік Күнтізбесі" вставлено изображение 3.jpg */
     header {
       margin-bottom: 40px;
       text-align: center;
     }
     header img {
-      max-width: 100%;
-      border-radius: 10px;
+      max-width: 50%;
       display: block;
-      margin: 0 auto;
+      margin: 0 auto 20px;
+      border-radius: 1px;
     }
     /* Анимация появления */
     .fade {
@@ -225,10 +226,9 @@
 <body>
   <div class="container">
     <header class="fade" style="animation-delay: 0.2s;">
-        <img src="3.PNG" alt="Орнамент" style="display: block; margin: 0 auto; max-width: 50%; border-radius: 1px;">
-
+      <!-- Вставляем изображение 3.jpg вместо текста -->
+      <img src="3.png" alt="Орнамент" style="display: block; margin: 0 auto; max-width: 50%; border-radius: 1px;">
       <h1>Ансар мен Мадина</h1>
-      <!-- Вместо текста вставлено изображение 3.jpg -->
     </header>
     <main>
       <!-- Календарь с прозрачным фоном -->
