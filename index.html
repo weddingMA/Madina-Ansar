@@ -2,324 +2,759 @@
 <html lang="kk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="description" content="Ансар мен Мадина үйлену тойына шақыру">
+  <meta name="theme-color" content="#8b5e3c">
   <title>Ансар мен Мадина | Күнтізбе</title>
-  <!-- Bootstrap CSS (только для сетки) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Основные переменные цвета */
     :root {
       --bg-color: #f0ead6;
       --light-color: #fffaf0;
       --accent: #8b5e3c;
+      --accent-light: #a67c5d;
       --border: #d2b48c;
       --text-color: #3a3a3a;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --container-padding: clamp(15px, 5vw, 30px);
+      --section-spacing: clamp(20px, 5vh, 40px);
+      --border-radius: 12px;
     }
+    
     /* Сброс и базовые стили */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
+    *, *::before, *::after { 
+      box-sizing: border-box; 
       margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
       font-family: 'Montserrat', sans-serif;
-      /* Фон с повторяющимся узором из файла 4.JPG */
-      background: var(--bg-color) url("4.JPG") repeat center center;
-      /* Задаём размер плитки – 600px по ширине, высота подбирается автоматически */
-      background-size: 600px auto;
+      background: var(--bg-color) url("4.jpg") repeat center center;
+      background-size: 300px auto; /* Smaller background pattern for mobile */
       color: var(--text-color);
       line-height: 1.6;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 15px 0;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      touch-action: manipulation; /* Improves touch experience */
     }
+    
     /* Контейнер с полупрозрачным фоном для читаемости содержимого */
     .container {
+      width: 95%;
       max-width: 960px;
       margin: 0 auto;
-      padding: 20px;
-      background: rgba(255, 255, 255, 1);
-      border-radius: 10px;
+      padding: var(--container-padding);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
     }
-    h1, h2, p {
-      margin: 0 0 20px;
-    }
+    
+    h1, h2, p { margin: 0 0 clamp(15px, 3vh, 20px); }
+    
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3rem;
+      font-size: clamp(1.8rem, 7vw, 3rem);
       text-align: center;
       color: var(--accent);
+      letter-spacing: 0.5px;
+      line-height: 1.2;
     }
-    /* Заголовок: вместо текста "Сүйіспеншілік Күнтізбесі" вставлено изображение 3.jpg */
-    header {
-      margin-bottom: 40px;
+    
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
       text-align: center;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      margin-bottom: 15px;
+      line-height: 1.3;
     }
+    
+    p {
+      font-size: clamp(0.95rem, 4vw, 1rem);
+      line-height: 1.7;
+    }
+    
+    /* Заголовок с изображением */
+    header {
+      margin-bottom: var(--section-spacing);
+      text-align: center;
+      position: relative;
+    }
+    
     header img {
-      max-width: 50%;
+      max-width: min(50%, 250px);
+      height: auto;
       display: block;
       margin: 0 auto 20px;
       border-radius: 1px;
     }
+    
     /* Анимация появления */
     .fade {
       opacity: 0;
       transform: translateY(20px);
       animation: fadeIn 1s forwards;
+      will-change: opacity, transform; /* Optimizes animations */
     }
+    
     @keyframes fadeIn {
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Календарь с прозрачным фоном */
+    
+    /* Основной текст (приветствие) */
+    .extra-content {
+      background: var(--light-color);
+      border: 1px solid var(--border);
+      border-radius: var(--border-radius);
+      padding: clamp(20px, 5vw, 25px);
+      max-width: 700px;
+      margin: var(--section-spacing) auto;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    
+    /* Календарь */
     .calendar-card {
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--border-radius);
       max-width: 420px;
-      margin: 30px auto;
+      margin: var(--section-spacing) auto;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      background: transparent;
+      box-shadow: var(--shadow);
+      background: rgba(255, 250, 240, 0.9);
     }
+    
     .calendar-header {
-      background: var(--border);
+      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
       padding: 15px;
       text-align: center;
-      font-size: 1.6rem;
+      font-size: clamp(1.3rem, 5vw, 1.6rem);
       color: #fff;
+      font-family: 'Playfair Display', serif;
     }
+    
     .calendar-body {
-      padding: 10px;
-      background: transparent;
+      padding: clamp(10px, 3vw, 15px);
     }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: clamp(3px, 1vw, 5px);
+    }
+    
+    .weekday {
+      text-align: center;
+      font-weight: bold;
+      padding: 5px 0;
+      color: var(--accent);
+      font-size: clamp(0.7rem, 3vw, 0.9rem);
+    }
+    
     .day {
-      height: 45px;
+      aspect-ratio: 1;
       border: 1px solid var(--border);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1rem;
-      transition: background 0.3s;
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
+      transition: all 0.3s ease;
       position: relative;
+      border-radius: 5px;
+      -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
     }
-    .day:hover {
-      background: rgba(219, 180, 140, 0.2);
+    
+    .day:hover, .day:active { 
+      background: rgba(219, 180, 140, 0.3);
+      transform: scale(1.05);
     }
-    /* Для дня 31 — добавляем сердце */
-    .day.highlight {
+    
+    .day.empty {
+      border: none;
+      background: transparent;
+    }
+    
+    .day.highlight { 
       font-weight: 700;
+      color: var(--accent);
+      background: rgba(219, 180, 140, 0.2);
+      border: 2px solid var(--accent);
     }
+    
     .day.highlight::before {
       content: "";
       position: absolute;
       top: -5px;
-      left: 3px;
-      width: calc(100% + 10px);
-      height: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29.6'><path d='M23.6,0c-3.4,0-6.4,2-7.6,4.9C14.8,2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.3,16,21.2,16,21.2s16-11.9,16-21.2 C32,3.8,28.2,0,23.6,0z' fill='none' stroke='%238b5e3c' stroke-width='2'/></svg>");
       background-size: contain;
       background-repeat: no-repeat;
       pointer-events: none;
     }
-    /* Таймер */
+    
+    /* Таймер и адрес */
     .countdown {
       background: var(--light-color);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: var(--border-radius);
+      padding: clamp(15px, 4vw, 20px);
       max-width: 420px;
-      margin: 30px auto;
+      margin: 20px auto;
       text-align: center;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      box-shadow: var(--shadow);
     }
+    
+    .countdown-timer {
+      margin: 15px 0;
+      font-weight: bold;
+      color: var(--accent);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .countdown-value {
+      font-size: clamp(1.4rem, 6vw, 1.8rem);
+      line-height: 1;
+    }
+    
+    .countdown-label {
+      font-size: clamp(0.7rem, 3vw, 0.8rem);
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+    
+    .address {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border);
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+    }
+    
+    /* Кнопка добавления в календарь */
+    .add-to-calendar {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .add-to-calendar:hover, .add-to-calendar:active {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
     /* Фото блок */
     .photo-frame {
       background: var(--light-color);
       border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 10px;
+      border-radius: var(--border-radius);
+      padding: 15px;
       max-width: 420px;
-      margin: 30px auto;
+      margin: var(--section-spacing) auto;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .photo-frame img {
-      max-width: 100%;
-      border-radius: 5px;
-      display: block;
-      margin: 0 auto;
-    }
-    /* Информация о мероприятии */
-    .event-info {
-      background: var(--light-color);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      max-width: 420px;
-      margin: 30px auto;
-      text-align: center;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    /* Декоративный разделитель с изображением */
-    .divider-frame {
-      background: var(--light-color);
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 10px;
-      max-width: 700px;
-      margin: 30px auto;
-      text-align: center;
+      box-shadow: var(--shadow);
       position: relative;
+      overflow: hidden;
     }
-    .divider-frame::before,
-    .divider-frame::after {
+    
+    .photo-frame::before {
       content: "";
       position: absolute;
-      top: 50%;
-      width: 30%;
-      height: 1px;
-      background: var(--border);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(219, 180, 140, 0.2), transparent);
+      pointer-events: none;
     }
-    .divider-frame::before { left: 0; }
-    .divider-frame::after { right: 0; }
-    .divider-frame img {
+    
+    .photo-frame img {
       max-width: 100%;
+      height: auto;
       border-radius: 5px;
       display: block;
       margin: 0 auto;
+      transition: transform 0.5s ease;
     }
-    /* Дополнительный контент */
-    .extra-content {
-      background: var(--light-color);
+    
+    /* Карта */
+    .map-container {
+      margin: var(--section-spacing) auto;
+      max-width: 420px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      max-width: 700px;
-      margin: 30px auto;
-      text-align: justify;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      display: block;
+    }
+    
+    /* Нижний колонтитул */
+    footer {
+      text-align: center;
+      margin-top: var(--section-spacing);
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+      color: var(--accent);
+    }
+    
     /* Кнопка "Наверх" */
     .back-to-top {
       position: fixed;
-      right: 20px;
       bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
       background: var(--accent);
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 1rem;
-      opacity: 0.7;
-      transition: opacity 0.3s;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(20px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 100;
+      -webkit-tap-highlight-color: transparent;
     }
-    .back-to-top:hover { opacity: 1; }
-    /* Адаптивность */
+    
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .back-to-top:hover, .back-to-top:active {
+      background: var(--accent-light);
+    }
+    
+    /* Адаптивность для мобильных устройств */
     @media (max-width: 576px) {
-      h1 { font-size: 2.2rem; }
-      .day { height: 35px; font-size: 0.9rem; }
+      body {
+        padding: 10px 0;
+      }
+      
+      .container {
+        width: 98%;
+        border-radius: 10px;
+      }
+      
+      .extra-content {
+        text-align: left;
+      }
+      
+      .photo-frame {
+        padding: 10px;
+      }
+      
+      /* Улучшенная область касания для мобильных устройств */
+      .day, .add-to-calendar, .back-to-top {
+        min-height: 44px; /* Минимальная высота для удобного касания */
+      }
+      
+      .add-to-calendar {
+        display: block;
+        width: 100%;
+        padding: 12px;
+      }
+    }
+    
+    /* Предотвращение зума при двойном касании на iOS */
+    @media (pointer: coarse) {
+      .day, .add-to-calendar, .back-to-top {
+        touch-action: manipulation;
+      }
+    }
+    
+    /* Оптимизация для устройств с темной темой */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #2a2a2a;
+        --light-color: #3a3a3a;
+        --text-color: #f0f0f0;
+        --border: #8b5e3c;
+      }
+      
+      body {
+        background-color: var(--bg-color);
+        background-image: none; /* Убираем фоновый узор в темной теме */
+      }
+      
+      .container {
+        background: rgba(42, 42, 42, 0.95);
+      }
+      
+      .day {
+        background: rgba(58, 58, 58, 0.7);
+      }
+      
+      .day:hover, .day:active {
+        background: rgba(139, 94, 60, 0.3);
+      }
+      
+      .day.highlight {
+        background: rgba(139, 94, 60, 0.4);
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="fade" style="animation-delay: 0.2s;">
-      <!-- Вставляем изображение 3.jpg вместо текста -->
-      <img src="3.PNG" alt="Орнамент" style="display: block; margin: 0 auto; max-width: 50%; border-radius: 1px;">
+      <img src="3.png" alt="Қазақ өрнегі - Kazakh ornament" width="250" height="83">
       <h1>Ансар мен Мадина</h1>
     </header>
+    
     <main>
-      <!-- Календарь с прозрачным фоном -->
-      <section class="calendar-card fade" style="animation-delay: 0.4s;" aria-labelledby="calendar-title">
-        <div class="calendar-header" id="calendar-title">Мамыр</div>
+      <!-- Основной текст -->
+      <section class="extra-content fade" style="animation-delay: 0.4s;" id="extraContent">
+        <h2>Қош келдіңіздер!</h2>
+        <p>
+          Бұл ерекше күнде Ансар мен Мадина бір-біріне деген махаббаттарын мәңгілікке жариялайды.
+          Құрметті достар мен туыстар, сіздерді осы қуанышты сәтке ортақтасуға шақырамыз.
+        </p>
+        <p>
+          Әрбір деталь біздің бірегей тарихымызды бейнелейді, ал қазақтың әсем нақыштары мен өрнектері
+          мерекеміздің нағыз рухын көрсетеді.
+        </p>
+      </section>
+      
+      <!-- Блок с календарём, таймером и адресом -->
+      <section class="calendar-card fade" style="animation-delay: 0.6s;" aria-labelledby="calendar-title">
+        <div class="calendar-header" id="calendar-title">Мамыр 2025</div>
         <div class="calendar-body">
-          <div class="row g-0" id="calendarGrid" aria-label="Календарь">
+          <div class="calendar-grid" id="weekdaysGrid" aria-hidden="true">
+            <!-- Дни недели -->
+            <div class="weekday">Дү</div>
+            <div class="weekday">Се</div>
+            <div class="weekday">Ср</div>
+            <div class="weekday">Бе</div>
+            <div class="weekday">Жұ</div>
+            <div class="weekday">Се</div>
+            <div class="weekday">Же</div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid" aria-label="Мамыр айының күнтізбесі">
             <!-- Ячейки календаря создаются через JS -->
+          </div>
+          
+          <div class="countdown fade" style="animation-delay: 0.8s;" aria-live="polite">
+            <div>31 мамыр, 15:00 дейінгі уақыт:</div>
+            <div class="countdown-timer" id="countdownTimer">
+              <div class="countdown-unit">
+                <span class="countdown-value" id="days">00</span>
+                <span class="countdown-label">күн</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-value" id="hours">00</span>
+                <span class="countdown-label">сағат</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-value" id="minutes">00</span>
+                <span class="countdown-label">минут</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-value" id="seconds">00</span>
+                <span class="countdown-label">секунд</span>
+              </div>
+            </div>
+            <div class="address">
+              <strong>Мекен-жай:</strong> Назарбаева 211 Е, г. Кокшетау
+            </div>
+            <button class="add-to-calendar" id="addToCalendar">
+              Күнтізбеге қосу
+            </button>
           </div>
         </div>
       </section>
-      <!-- Таймер -->
-      <section class="countdown fade" style="animation-delay: 0.6s;" aria-live="polite">
-        <div>31 мамыр, 15:00 дейінгі уақыт:</div>
-        <div id="countdownTimer">Жүктелуде...</div>
+      
+      <!-- Карта местоположения -->
+      <section class="map-container fade" style="animation-delay: 0.9s;">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.4092231285493!2d69.2373!3d41.2994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE3JzU4LjAiTiA2OcKwMTQnMTQuMyJF!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+          loading="lazy" 
+          title="Мекен-жай картасы"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
       </section>
-      <!-- Фото блок -->
-      <section class="photo-frame fade" style="animation-delay: 0.8s;">
-        <img src="1.jpg" alt="Фото мероприятия">
+      
+      <!-- Нижнее фото -->
+      <section class="photo-frame fade" style="animation-delay: 1s;">
+        <img src="1.jpg" alt="Ансар мен Мадина" width="400" height="300" loading="lazy">
       </section>
-      <!-- Информация о мероприятии -->
-      <section class="event-info fade" style="animation-delay: 1s;">
-        <p><strong>Мекен-жай:</strong> Назарбаева 211 Е, г. Кокшетау</p>
-        <p><strong>Күні мен уақыты:</strong> 31 мамыр, 15:00</p>
-      </section>
-      <!-- Декоративный разделитель -->
-      <section class="divider-frame fade" style="animation-delay: 1.2s;">
-        <img src="2.jpg" alt="Декоративное изображение">
-      </section>
-      <!-- Дополнительный контент -->
-      <section class="extra-content fade" style="animation-delay: 1.4s;" id="extraContent">
-        <h2 style="text-align: center; color: var(--accent); font-family: 'Playfair Display', serif;">Қош келдіңіздер!</h2>
-        <p>
-          Бұл ерекше күнде Ансар мен Мадина бір-біріне деген махаббаттарын мәңгілікке жариялайды. Құрметті достар мен туыстар, сіздерді осы қуанышты сәтке ортақтасуға шақырамыз.
-        </p>
-        <p>
-          Әрбір деталь біздің бірегей тарихымызды бейнелейді, ал қазақтың әсем нақыштары мен өрнектері мерекеміздің нағыз рухын көрсетеді. Сіздермен бірге болу – біз үшін үлкен бақыт.
-        </p>
-        <p>
-          Мерекеге дейінгі уақытты санау кезінде, әрбір секунд біздің жаңа өмірімізге жақындағанымызды еске салады. Сіздермен кездескенше!
-        </p>
-      </section>
+      
+      <footer class="fade" style="animation-delay: 1.1s;">
+        Ансар мен Мадина, 2025
+      </footer>
     </main>
   </div>
+  
   <!-- Кнопка "Наверх" -->
-  <a href="#" class="back-to-top">Наверх</a>
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <button class="back-to-top" id="backToTop" aria-label="Жоғарыға">
+    ↑
+  </button>
+  
   <script>
     'use strict';
+    
     // Создание календаря для месяца мамыр
     function createCalendar() {
       const calendarGrid = document.getElementById('calendarGrid');
       calendarGrid.innerHTML = '';
+      
+      // Определяем первый день месяца (0 - воскресенье, 1 - понедельник, и т.д.)
+      // Для примера используем 2025 год, где 1 мая - четверг (индекс 4)
+      const firstDayOfMonth = 4; // Четверг
+      
+      // Добавляем пустые ячейки для дней до начала месяца
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day empty';
+        calendarGrid.appendChild(emptyCell);
+      }
+      
+      // Добавляем дни месяца
       for (let day = 1; day <= 31; day++) {
-        const col = document.createElement('div');
-        col.className = 'col-2';
         const dayDiv = document.createElement('div');
         dayDiv.className = 'day';
         dayDiv.textContent = day;
+        dayDiv.setAttribute('aria-label', `${day} мамыр`);
+        dayDiv.setAttribute('role', 'button');
+        dayDiv.setAttribute('tabindex', '0');
+        
         if (day === 31) {
           dayDiv.classList.add('highlight');
+          dayDiv.setAttribute('aria-label', `${day} мамыр - Үйлену тойы күні`);
         }
-        col.appendChild(dayDiv);
-        calendarGrid.appendChild(col);
+        
+        // Добавляем обработчик событий для клика и нажатия клавиши Enter
+        dayDiv.addEventListener('click', function() {
+          if (day === 31) {
+            alert('31 мамыр - Үйлену тойы күні! Сағат 15:00-де кездесеміз!');
+          }
+        });
+        
+        dayDiv.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (day === 31) {
+              alert('31 мамыр - Үйлену тойы күні! Сағат 15:00-де кездесеміз!');
+            }
+          }
+        });
+        
+        calendarGrid.appendChild(dayDiv);
       }
     }
-    createCalendar();
+    
     // Таймер до 31 мая 15:00
     function updateCountdown() {
       const now = new Date();
-      let targetYear = now.getFullYear();
-      let targetDate = new Date(targetYear, 4, 31, 15, 0, 0);
-      if (now > targetDate) {
-        targetYear++;
-        targetDate = new Date(targetYear, 4, 31, 15, 0, 0);
-      }
+      const currentYear = now.getFullYear();
+      // Используем следующий год, если текущий месяц май и прошло 31 число или уже июнь и далее
+      const targetYear = (now.getMonth() > 4 || (now.getMonth() === 4 && now.getDate() > 31)) 
+        ? currentYear + 1 
+        : currentYear;
+      
+      const targetDate = new Date(targetYear, 4, 31, 15, 0, 0);
       const diff = targetDate - now;
+      
+      // Расчет оставшегося времени
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById('countdownTimer').textContent = 
-        `${days} күн ${hours} сағат ${minutes} минут ${seconds} секунд`;
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      // Обновление элементов таймера с ведущими нулями
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
     }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    // Кнопка "Наверх"
-    document.querySelector('.back-to-top').addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Анимация элементов при прокрутке
+    function handleScrollAnimations() {
+      if ('IntersectionObserver' in window) {
+        const fadeElements = document.querySelectorAll('.fade');
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = 'running';
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        
+        fadeElements.forEach(element => {
+          element.style.animationPlayState = 'paused';
+          observer.observe(element);
+        });
+      } else {
+        // Fallback для браузеров без поддержки IntersectionObserver
+        const fadeElements = document.querySelectorAll('.fade');
+        fadeElements.forEach(element => {
+          element.style.animationPlayState = 'running';
+        });
+      }
+    }
+    
+    // Функция для кнопки "Наверх"
+    function setupBackToTopButton() {
+      const backToTopButton = document.getElementById('backToTop');
+      
+      // Показываем кнопку при прокрутке вниз
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+      
+      // Прокрутка наверх при клике
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+    
+    // Функция для добавления события в календарь
+    function setupAddToCalendar() {
+      const addToCalendarButton = document.getElementById('addToCalendar');
+      
+      addToCalendarButton.addEventListener('click', () => {
+        // Создаем данные для события календаря
+        const eventDate = new Date(2025, 4, 31, 15, 0, 0);
+        const endDate = new Date(2025, 4, 31, 20, 0, 0);
+        
+        // Форматируем даты для iCalendar
+        const formatDate = (date) => {
+          return date.toISOString().replace(/-|:|\.\d+/g, '');
+        };
+        
+        const startTime = formatDate(eventDate);
+        const endTime = formatDate(endDate);
+        
+        // Создаем ссылку на событие календаря
+        const calendarUrl = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'BEGIN:VEVENT',
+          `DTSTART:${startTime}`,
+          `DTEND:${endTime}`,
+          'SUMMARY:Үйлену тойы - Ансар мен Мадина',
+          'DESCRIPTION:Ансар мен Мадина үйлену тойы',
+          'LOCATION:Назарбаева 211 Е, г. Кокшетау',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\n');
+        
+        // Создаем ссылку для скачивания файла .ics
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(calendarUrl));
+        element.setAttribute('download', 'ansar-madina-wedding.ics');
+        
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      });
+    }
+    
+    // Оптимизация для мобильных устройств
+    function setupMobileOptimizations() {
+      // Предотвращаем зум при двойном касании на iOS
+      document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+      
+      // Улучшаем отзывчивость касаний
+      document.addEventListener('touchmove', function(e) {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+      
+      // Оптимизация для устройств с разной плотностью пикселей
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      if (devicePixelRatio > 1) {
+        // Уменьшаем размер фонового узора для устройств с высокой плотностью пикселей
+        document.body.style.backgroundSize = `${300 / devicePixelRatio}px auto`;
+      }
+    }
+    
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+      createCalendar();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      handleScrollAnimations();
+      setupBackToTopButton();
+      setupAddToCalendar();
+      setupMobileOptimizations();
+      
+      // Проверка на поддержку сенсорного экрана
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        document.body.classList.add('touch-device');
+      }
+      
+      // Предзагрузка изображений для улучшения производительности
+      const preloadImages = ['1.jpg', '3.png', '4.jpg'];
+      preloadImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
     });
   </script>
 </body>
