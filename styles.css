@@ -10,21 +10,21 @@
     --container-padding: clamp(15px, 5vw, 30px);
     --section-spacing: clamp(20px, 5vh, 40px);
     --border-radius: 12px;
-  }
-  
-  /* Сброс и базовые стили */
-  *, *::before, *::after { 
+}
+
+/* Сброс и базовые стили */
+*, *::before, *::after { 
     box-sizing: border-box; 
     margin: 0;
     padding: 0;
-  }
-  
-  html {
+}
+
+html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
-  }
-  
-  body {
+}
+
+body {
     font-family: 'Montserrat', sans-serif;
     background: var(--bg-color) url("4.jpg") repeat center center;
     background-size: 425px auto; /* Smaller background pattern for mobile */
@@ -40,10 +40,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation; /* Improves touch experience */
-  }
-  
-  /* Контейнер с полупрозрачным фоном для читаемости содержимого */
-  .container {
+}
+
+/* Контейнер с полупрозрачным фоном для читаемости содержимого */
+.container {
     width: 95%;
     max-width: 960px;
     margin: 0 auto;
@@ -51,62 +51,63 @@
     background: rgba(255, 255, 255, 0.8);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-  }
-  
-  h1, h2, p { margin: 0 0 clamp(15px, 3vh, 20px); }
-  
-  h1 {
+}
+
+h1, h2, p { margin: 0 0 clamp(15px, 3vh, 20px); }
+
+h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.8rem, 7vw, 3rem);
     text-align: center;
     color: var(--accent);
     letter-spacing: 0.5px;
     line-height: 1.2;
-  }
-  
-  h2 {
+}
+
+h2 {
     font-family: 'Playfair Display', serif;
     color: var(--accent);
     text-align: center;
     font-size: clamp(1.4rem, 5vw, 2rem);
     margin-bottom: 15px;
     line-height: 1.3;
-  }
-  
-  p {
+}
+
+p {
     font-size: clamp(0.95rem, 4vw, 1rem);
     line-height: 1.7;
-  }
-  
-  /* Заголовок с изображением */
-  header {
+}
+
+/* Заголовок с изображением */
+header {
     margin-bottom: var(--section-spacing);
     text-align: center;
     position: relative;
-  }
-  
-  header img {
-    max-width: min(50%, 250px);
+}
+
+header img {
+    max-width: 400px; /* Изменено для увеличения изображения */
+    width: 100%;
     height: auto;
     display: block;
     margin: 0 auto 20px;
     border-radius: 1px;
-  }
-  
-  /* Анимация появления */
-  .fade {
+}
+
+/* Анимация появления */
+.fade {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeIn 1s forwards;
     will-change: opacity, transform; /* Optimizes animations */
-  }
-  
-  @keyframes fadeIn {
+}
+
+@keyframes fadeIn {
     to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Основной текст (приветствие) */
-  .extra-content {
+}
+
+/* Основной текст (приветствие) */
+.extra-content {
     background: var(--light-color);
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
@@ -115,10 +116,12 @@
     margin: var(--section-spacing) auto;
     text-align: center;
     box-shadow: var(--shadow);
-  }
-  
-  /* Календарь */
-  .calendar-card {
+    font-family: 'Playfair Display', serif; /* Элегантный шрифт для основного текста */
+    font-size: clamp(1.1rem, 4vw, 1.3rem);  /* Чуть увеличенный размер шрифта */
+}
+
+/* Календарь */
+.calendar-card {
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
     max-width: 420px;
@@ -126,9 +129,9 @@
     overflow: hidden;
     box-shadow: var(--shadow);
     background: rgba(255, 250, 240, 0.9);
-  }
-  
-  .calendar-header {
+}
+
+.calendar-header {
     background: var(--accent);
     background: linear-gradient(135deg, var(--accent), var(--accent-light));
     padding: 15px;
@@ -136,27 +139,27 @@
     font-size: clamp(1.3rem, 5vw, 1.6rem);
     color: #fff;
     font-family: 'Playfair Display', serif;
-  }
-  
-  .calendar-body {
+}
+
+.calendar-body {
     padding: clamp(10px, 3vw, 15px);
-  }
-  
-  .calendar-grid {
+}
+
+.calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: clamp(3px, 1vw, 5px);
-  }
-  
-  .weekday {
+}
+
+.weekday {
     text-align: center;
     font-weight: bold;
     padding: 5px 0;
     color: var(--accent);
     font-size: clamp(0.7rem, 3vw, 0.9rem);
-  }
-  
-  .day {
+}
+
+.day {
     aspect-ratio: 1;
     border: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.7);
@@ -168,26 +171,26 @@
     position: relative;
     border-radius: 5px;
     -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
-  }
-  
-  .day:hover, .day:active { 
+}
+
+.day:hover, .day:active { 
     background: rgba(219, 180, 140, 0.3);
     transform: scale(1.05);
-  }
-  
-  .day.empty {
+}
+
+.day.empty {
     border: none;
     background: transparent;
-  }
-  
-  .day.highlight { 
+}
+
+.day.highlight { 
     font-weight: 700;
     color: var(--accent);
     background: rgba(219, 180, 140, 0.2);
     border: 2px solid var(--accent);
-  }
-  
-  .day.highlight::before {
+}
+
+.day.highlight::before {
     content: "";
     position: absolute;
     top: 0px;
@@ -199,10 +202,10 @@
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
-  }
-  
-  /* Таймер и адрес */
-  .countdown {
+}
+
+/* Таймер и адрес */
+.countdown {
     background: var(--light-color);
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
@@ -212,43 +215,43 @@
     text-align: center;
     font-size: clamp(1rem, 4vw, 1.2rem);
     box-shadow: var(--shadow);
-  }
-  
-  .countdown-timer {
+}
+
+.countdown-timer {
     margin: 15px 0;
     font-weight: bold;
     color: var(--accent);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-  }
-  
-  .countdown-unit {
+}
+
+.countdown-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .countdown-value {
+}
+
+.countdown-value {
     font-size: clamp(1.4rem, 6vw, 1.8rem);
     line-height: 1;
-  }
-  
-  .countdown-label {
+}
+
+.countdown-label {
     font-size: clamp(0.7rem, 3vw, 0.8rem);
     text-transform: uppercase;
     margin-top: 5px;
-  }
-  
-  .address {
+}
+
+.address {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px dashed var(--border);
     font-size: clamp(0.9rem, 3.5vw, 1rem);
-  }
-  
-  /* Кнопка добавления в календарь */
-  .add-to-calendar {
+}
+
+/* Кнопка добавления в календарь */
+.add-to-calendar {
     display: inline-block;
     margin-top: 15px;
     padding: 10px 20px;
@@ -263,16 +266,16 @@
     transition: all 0.3s ease;
     text-decoration: none;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  
-  .add-to-calendar:hover, .add-to-calendar:active {
+}
+
+.add-to-calendar:hover, .add-to-calendar:active {
     background: var(--accent-light);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  }
-  
-  /* Фото блок */
-  .photo-frame {
+}
+
+/* Фото блок */
+.photo-frame {
     background: var(--light-color);
     border: 2px solid var(--border);
     border-radius: var(--border-radius);
@@ -283,9 +286,9 @@
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
-  }
-  
-  .photo-frame::before {
+}
+
+.photo-frame::before {
     content: "";
     position: absolute;
     top: 0;
@@ -294,44 +297,44 @@
     bottom: 0;
     background: linear-gradient(45deg, rgba(219, 180, 140, 0.2), transparent);
     pointer-events: none;
-  }
-  
-  .photo-frame img {
+}
+
+.photo-frame img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
     display: block;
     margin: 0 auto;
     transition: transform 0.5s ease;
-  }
-  
-  /* Карта */
-  .map-container {
+}
+
+/* Карта */
+.map-container {
     margin: var(--section-spacing) auto;
     max-width: 420px;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
-  }
-  
-  .map-container iframe {
+}
+
+.map-container iframe {
     width: 100%;
     height: 250px;
     border: none;
     display: block;
-  }
-  
-  /* Нижний колонтитул */
-  footer {
+}
+
+/* Нижний колонтитул */
+footer {
     text-align: center;
     margin-top: var(--section-spacing);
     font-size: clamp(0.8rem, 3vw, 0.9rem);
     color: var(--accent);
-  }
-  
-  /* Кнопка "Наверх" */
-  .back-to-top {
+}
+
+/* Кнопка "Наверх" */
+.back-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -350,82 +353,82 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     z-index: 100;
     -webkit-tap-highlight-color: transparent;
-  }
-  
-  .back-to-top.visible {
+}
+
+.back-to-top.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-  
-  .back-to-top:hover, .back-to-top:active {
+}
+
+.back-to-top:hover, .back-to-top:active {
     background: var(--accent-light);
-  }
-  
-  /* Адаптивность для мобильных устройств */
-  @media (max-width: 576px) {
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 576px) {
     body {
-      padding: 10px 0;
+        padding: 10px 0;
     }
     
     .container {
-      width: 98%;
-      border-radius: 10px;
+        width: 98%;
+        border-radius: 10px;
     }
     
     .extra-content {
-      text-align: left;
+        text-align: left;
     }
     
     .photo-frame {
-      padding: 10px;
+        padding: 10px;
     }
     
     /* Улучшенная область касания для мобильных устройств */
     .day, .add-to-calendar, .back-to-top {
-      min-height: 44px; /* Минимальная высота для удобного касания */
+        min-height: 44px; /* Минимальная высота для удобного касания */
     }
     
     .add-to-calendar {
-      display: block;
-      width: 100%;
-      padding: 12px;
+        display: block;
+        width: 100%;
+        padding: 12px;
     }
-  }
-  
-  /* Предотвращение зума при двойном касании на iOS */
-  @media (pointer: coarse) {
+}
+
+/* Предотвращение зума при двойном касании на iOS */
+@media (pointer: coarse) {
     .day, .add-to-calendar, .back-to-top {
-      touch-action: manipulation;
+        touch-action: manipulation;
     }
-  }
-  
-  /* Оптимизация для устройств с темной темой */
-  @media (prefers-color-scheme: dark) {
+}
+
+/* Оптимизация для устройств с темной темой */
+@media (prefers-color-scheme: dark) {
     :root {
-      --bg-color: #2a2a2a;
-      --light-color: #3a3a3a;
-      --text-color: #f0f0f0;
-      --border: #8b5e3c;
+        --bg-color: #2a2a2a;
+        --light-color: #3a3a3a;
+        --text-color: #f0f0f0;
+        --border: #8b5e3c;
     }
     
     body {
-      background-color: var(--bg-color);
-      background-image: none; /* Убираем фоновый узор в темной теме */
+        background-color: var(--bg-color);
+        background-image: none; /* Убираем фоновый узор в темной теме */
     }
     
     .container {
-      background: rgba(42, 42, 42, 0.95);
+        background: rgba(42, 42, 42, 0.95);
     }
     
     .day {
-      background: rgba(58, 58, 58, 0.7);
+        background: rgba(58, 58, 58, 0.7);
     }
     
     .day:hover, .day:active {
-      background: rgba(139, 94, 60, 0.3);
+        background: rgba(139, 94, 60, 0.3);
     }
     
     .day.highlight {
-      background: rgba(139, 94, 60, 0.4);
+        background: rgba(139, 94, 60, 0.4);
     }
-  }
+}
