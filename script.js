@@ -244,7 +244,9 @@ function setupMobileOptimizations() {
   }
 }
 
-// Update the createFloatingHearts function to use white hearts
+// Also let's reduce the number of floating hearts by modifying the createFloatingHearts function
+
+// Find this function:
 function createFloatingHearts() {
   const container = document.querySelector(".floating-hearts")
 
@@ -275,6 +277,39 @@ function createFloatingHearts() {
       }, 10000)
     }
   }, 3000)
+}
+
+// Replace with this updated version:
+function createFloatingHearts() {
+  const container = document.querySelector(".floating-hearts")
+
+  // Создаем сердечки с увеличенным интервалом
+  setInterval(() => {
+    // Создаем только если страница видна и с 50% вероятностью
+    if (document.visibilityState === "visible" && Math.random() > 0.9) {
+      const heart = document.createElement("div")
+
+      // Create a white heart using SVG
+      heart.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="white"/>
+      </svg>`
+
+      heart.style.position = "absolute"
+      heart.style.width = Math.random() * 30 + 15 + "px"
+      heart.style.height = "auto"
+      heart.style.opacity = "0"
+      heart.style.left = Math.random() * 100 + "%"
+      heart.style.animation = `floatHeart ${Math.random() * 5 + 5}s linear forwards`
+      heart.style.filter = "drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))"
+
+      container.appendChild(heart)
+
+      // Удаляем сердечко после анимации
+      setTimeout(() => {
+        heart.remove()
+      }, 10000)
+    }
+  }, 6000) // Increased from 3000ms to 6000ms (2x fewer hearts)
 }
 
 // Create falling petals effect
@@ -574,20 +609,20 @@ function setupPlayButton() {
 
 // Function to handle page visibility changes
 function handleVisibilityChange() {
-  const backgroundMusic = document.getElementById("backgroundMusic");
-  const playButton = document.getElementById("playButton");
-  
+  const backgroundMusic = document.getElementById("backgroundMusic")
+  const playButton = document.getElementById("playButton")
+
   // Check if the page is hidden (user switched tabs or minimized)
   if (document.hidden) {
     // If music is playing, pause it
     if (backgroundMusic && !backgroundMusic.paused) {
-      backgroundMusic.pause();
-      
+      backgroundMusic.pause()
+
       // Update the play button appearance if needed
       if (playButton) {
-        playButton.classList.remove("playing");
-        playButton.innerHTML = 
-          '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>';
+        playButton.classList.remove("playing")
+        playButton.innerHTML =
+          '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
       }
     }
   }
@@ -595,11 +630,11 @@ function handleVisibilityChange() {
 
 // Function to handle page unload (browser close or navigation away)
 function handleBeforeUnload() {
-  const backgroundMusic = document.getElementById("backgroundMusic");
-  
+  const backgroundMusic = document.getElementById("backgroundMusic")
+
   // Pause music when user is leaving the page
   if (backgroundMusic && !backgroundMusic.paused) {
-    backgroundMusic.pause();
+    backgroundMusic.pause()
   }
 }
 
@@ -630,10 +665,11 @@ document.addEventListener("DOMContentLoaded", () => {
     img.src = src
   })
 
-  document.addEventListener("visibilitychange", handleVisibilityChange);
-  window.addEventListener("beforeunload", handleBeforeUnload);
+  document.addEventListener("visibilitychange", handleVisibilityChange)
+  window.addEventListener("beforeunload", handleBeforeUnload)
 
   // For mobile devices, add these additional event listeners
-  window.addEventListener("pagehide", handleBeforeUnload);
-  document.addEventListener("pause", handleBeforeUnload); // For some mobile browsers
+  window.addEventListener("pagehide", handleBeforeUnload)
+  document.addEventListener("pause", handleBeforeUnload) // For some mobile browsers
 })
+
