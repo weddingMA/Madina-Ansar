@@ -572,6 +572,37 @@ function setupPlayButton() {
   })
 }
 
+// Function to handle page visibility changes
+function handleVisibilityChange() {
+  const backgroundMusic = document.getElementById("backgroundMusic");
+  const playButton = document.getElementById("playButton");
+  
+  // Check if the page is hidden (user switched tabs or minimized)
+  if (document.hidden) {
+    // If music is playing, pause it
+    if (backgroundMusic && !backgroundMusic.paused) {
+      backgroundMusic.pause();
+      
+      // Update the play button appearance if needed
+      if (playButton) {
+        playButton.classList.remove("playing");
+        playButton.innerHTML = 
+          '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>';
+      }
+    }
+  }
+}
+
+// Function to handle page unload (browser close or navigation away)
+function handleBeforeUnload() {
+  const backgroundMusic = document.getElementById("backgroundMusic");
+  
+  // Pause music when user is leaving the page
+  if (backgroundMusic && !backgroundMusic.paused) {
+    backgroundMusic.pause();
+  }
+}
+
 // Инициализация
 document.addEventListener("DOMContentLoaded", () => {
   createCalendar()
@@ -598,5 +629,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = new Image()
     img.src = src
   })
-})
 
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  // For mobile devices, add these additional event listeners
+  window.addEventListener("pagehide", handleBeforeUnload);
+  document.addEventListener("pause", handleBeforeUnload); // For some mobile browsers
+})
