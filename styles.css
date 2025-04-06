@@ -160,7 +160,10 @@ header img:hover {
   margin: 0 5px;
   animation: floatAmpersand 3s ease-in-out infinite;
 }
-
+h2 {
+    color: #8b5e3c;
+  }
+  
 @keyframes floatAmpersand {
   0%,
   100% {
@@ -183,7 +186,6 @@ header img:hover {
 /* Play Button Styles - Smaller and Simpler */
 .play-button-container {
   text-align: center;
-  margin: 10px 0 20px;
   perspective: 1000px;
 }
 
