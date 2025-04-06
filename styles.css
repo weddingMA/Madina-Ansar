@@ -24,6 +24,7 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
+/* Здесь оставляем Montserrat для остальных элементов, если необходимо */
 body {
     font-family: 'Montserrat', sans-serif;
     background: var(--bg-color) url("4.jpg") repeat center center;
@@ -53,7 +54,19 @@ body {
     box-shadow: var(--shadow);
 }
 
-h1, h2, p { margin: 0 0 clamp(15px, 3vh, 20px); }
+.extra-content,
+.extra-content h1,
+.extra-content h2,
+.extra-content p,
+h1,
+h2,
+p {
+  margin: 0 0 clamp(15px, 3vh, 20px);
+  font-family: "Cormorant Infant", serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Выберите нужное значение от 300 до 700 */
+  font-style: normal;
+}
 
 h1 {
     font-family: 'Playfair Display', serif;
@@ -106,7 +119,7 @@ header img {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Основной текст (приветствие) */
+/* Основной текст (приветствие) с использованием Cormorant Infant */
 .extra-content {
     background: var(--light-color);
     border: 1px solid var(--border);
@@ -116,8 +129,19 @@ header img {
     margin: var(--section-spacing) auto;
     text-align: center;
     box-shadow: var(--shadow);
-    font-family: 'Playfair Display', serif; /* Элегантный шрифт для основного текста */
-    font-size: clamp(1.1rem, 4vw, 1.3rem);  /* Чуть увеличенный размер шрифта */
+    /* Заменяем Playfair Display на Cormorant Infant */
+    font-family: "Cormorant Infant", serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Можно менять от 300 до 700 */
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+}
+
+/* Пример вариативного класса для Cormorant Infant */
+.cormorant-infant-regular {
+  font-family: "Cormorant Infant", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* Календарь */
