@@ -135,6 +135,17 @@ function setupLocationButton() {
 
 // Оптимизация для мобильных устройств
 function setupMobileOptimizations() {
+  // Detect if device is mobile
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth <= 768 ||
+    "ontouchstart" in window
+
+  // Add mobile class to body if on mobile device
+  if (isMobile) {
+    document.body.classList.add("mobile-device")
+  }
+
   // Предотвращаем зум при двойном касании на iOS
   document.addEventListener(
     "touchstart",
@@ -157,6 +168,29 @@ function setupMobileOptimizations() {
     { passive: false },
   )
 
+  // Add active state for buttons on touch devices
+  if (isMobile) {
+    const buttons = document.querySelectorAll('button, [role="button"]')
+    buttons.forEach((button) => {
+      button.addEventListener(
+        "touchstart",
+        () => {
+          button.classList.add("touch-active")
+        },
+        { passive: true },
+      )
+
+      button.addEventListener(
+        "touchend",
+        () => {
+          button.classList.remove("touch-active")
+          setTimeout(() => button.classList.remove("touch-active"), 300)
+        },
+        { passive: true },
+      )
+    })
+  }
+
   // Оптимизация для устройств с разной плотностью пикселей
   const devicePixelRatio = window.devicePixelRatio || 1
   if (devicePixelRatio > 3) {
@@ -165,7 +199,7 @@ function setupMobileOptimizations() {
   }
 }
 
-// Simple, reliable smooth scrolling function
+// Simple, reliable smooth scrolling function optimized for mobile
 function smoothScrollToBottom() {
   // Clear any existing scroll interval
   if (window.scrollInterval) {
@@ -196,9 +230,16 @@ function smoothScrollToBottom() {
   // If already at the bottom, do nothing
   if (distance <= 0) return
 
-  // Scroll parameters - INCREASED SPEED
-  const scrollAmount = 2 // Scroll 2 pixels at a time (was 1)
-  const scrollDelay = 10 // 10ms delay between scrolls (was 15)
+  // Detect if device is mobile
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth <= 768 ||
+    "ontouchstart" in window
+
+  // Adjust scroll parameters based on device type
+  // Mobile devices need faster scrolling with larger steps
+  const scrollAmount = isMobile ? 3 : 2 // More pixels per step on mobile
+  const scrollDelay = isMobile ? 8 : 10 // Faster updates on mobile
 
   // Create the scroll interval
   window.scrollInterval = setInterval(() => {
@@ -214,6 +255,19 @@ function smoothScrollToBottom() {
 
     // Scroll down by the scroll amount
     window.scrollBy(0, scrollAmount)
+
+    // Check if scroll is stuck (for mobile browsers that might throttle)
+    if (window.lastScrollPosition === currentPosition && window.scrollStuckCount > 5) {
+      // Force a larger jump to unstick
+      window.scrollBy(0, scrollAmount * 3)
+      window.scrollStuckCount = 0
+    } else if (window.lastScrollPosition === currentPosition) {
+      window.scrollStuckCount = (window.scrollStuckCount || 0) + 1
+    } else {
+      window.scrollStuckCount = 0
+    }
+
+    window.lastScrollPosition = currentPosition
   }, scrollDelay)
 }
 
@@ -222,34 +276,94 @@ function setupPlayButton() {
   const playButton = document.getElementById("playButton")
   const backgroundMusic = document.getElementById("backgroundMusic")
 
-  playButton.addEventListener("click", () => {
-    // Воспроизведение/пауза музыки
-    if (backgroundMusic.paused) {
-      backgroundMusic
-        .play()
-        .then(() => {
-          playButton.classList.add("playing")
+  // Preload audio for better mobile experience
+  backgroundMusic.load()
+
+  // Add special handling for iOS devices which require user interaction for audio
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+  if (isIOS) {
+    document.body.addEventListener(
+      "touchstart",
+      () => {
+        // Create and play a silent audio element to unlock audio
+        const silentAudio = document.createElement("audio")
+        silentAudio.setAttribute(
+          "src",
+          "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV",
+        )
+        silentAudio.volume = 0
+        document.body.appendChild(silentAudio)
+        silentAudio
+          .play()
+          .then(() => {
+            document.body.removeChild(silentAudio)
+          })
+          .catch(() => {
+            // Ignore errors
+          })
+      },
+      { once: true },
+    )
+  }
+  // Use both click and touchend for better mobile response
+  ;["click", "touchend"].forEach((eventType) => {
+    playButton.addEventListener(
+      eventType,
+      (e) => {
+        // Prevent double firing on devices that trigger both events
+        if (e.type === "touchend" && e.cancelable) {
+          e.preventDefault()
+        }
+
+        // Avoid processing if this is a simulated click from touchend
+        if (e.type === "click" && playButton.touchFired) {
+          playButton.touchFired = false
+          return
+        }
+
+        // Set flag for touchend
+        if (e.type === "touchend") {
+          playButton.touchFired = true
+        }
+
+        // Воспроизведение/пауза музыки
+        if (backgroundMusic.paused) {
+          // Add vibration feedback on mobile if supported
+          if ("vibrate" in navigator) {
+            navigator.vibrate(50)
+          }
+
+          backgroundMusic
+            .play()
+            .then(() => {
+              playButton.classList.add("playing")
+              playButton.innerHTML =
+                '<span class="play-icon">♫</span><span class="play-text">Тоқтату</span><span class="play-sparkle"></span>'
+
+              // Плавная прокрутка к концу страницы
+              smoothScrollToBottom()
+            })
+            .catch((error) => {
+              console.error("Ошибка воспроизведения аудио:", error)
+
+              // Still scroll even if audio fails (common on mobile)
+              smoothScrollToBottom()
+            })
+        } else {
+          backgroundMusic.pause()
+          playButton.classList.remove("playing")
           playButton.innerHTML =
-            '<span class="play-icon">♫</span><span class="play-text">Тоқтату</span><span class="play-sparkle"></span>'
+            '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
 
-          // Плавная прокрутка к концу страницы
-          smoothScrollToBottom()
-        })
-        .catch((error) => {
-          console.error("Ошибка воспроизведения аудио:", error)
-        })
-    } else {
-      backgroundMusic.pause()
-      playButton.classList.remove("playing")
-      playButton.innerHTML =
-        '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
-
-      // Cancel any ongoing scroll animation when music is paused
-      if (window.scrollInterval) {
-        clearInterval(window.scrollInterval)
-        window.scrollInterval = null
-      }
-    }
+          // Cancel any ongoing scroll animation when music is paused
+          if (window.scrollInterval) {
+            clearInterval(window.scrollInterval)
+            window.scrollInterval = null
+          }
+        }
+      },
+      { passive: false },
+    )
   })
 }
 

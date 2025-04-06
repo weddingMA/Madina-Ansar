@@ -103,6 +103,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     transform-style: preserve-3d;
     letter-spacing: 1px;
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
   }
   
   @keyframes gradientShift {
@@ -588,9 +589,39 @@
       padding: 12px;
     }
   
+    /* Enhanced mobile play button */
     .play-button {
       width: 90%;
-      padding: 14px 20px;
+      padding: 16px 20px;
+      font-size: 1.4rem;
+      margin: 0 auto;
+      border-width: 3px;
+      box-shadow: 0 8px 20px rgba(139, 94, 60, 0.5), 0 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+  
+    .play-button:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 10px rgba(139, 94, 60, 0.3);
+    }
+  
+    .play-icon {
+      font-size: 1.6rem;
+      margin-right: 15px;
+    }
+  
+    /* Add a subtle bounce animation to draw attention to the button */
+    @keyframes buttonBounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+  
+    .play-button-container {
+      animation: buttonBounce 3s ease-in-out 1s infinite;
     }
   }
   
@@ -601,6 +632,21 @@
     .back-to-top,
     .play-button {
       touch-action: manipulation;
+    }
+  
+    /* Larger touch targets for all interactive elements */
+    button,
+    [role="button"],
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  
+    /* Improve tap feedback */
+    .play-button:active {
+      opacity: 0.9;
+      transform: scale(0.98);
+      transition: transform 0.1s, opacity 0.1s;
     }
   }
   
@@ -633,6 +679,30 @@
   
     .day.highlight {
       background: rgba(139, 94, 60, 0.4);
+    }
+  }
+  
+  /* Specific optimizations for very small screens */
+  @media (max-width: 360px) {
+    .play-button {
+      font-size: 1.2rem;
+      padding: 14px 16px;
+    }
+  
+    .play-icon {
+      margin-right: 8px;
+    }
+  
+    .countdown-timer {
+      gap: 5px;
+    }
+  
+    .countdown-value {
+      font-size: 1.2rem;
+    }
+  
+    .countdown-label {
+      font-size: 0.6rem;
     }
   }
   
