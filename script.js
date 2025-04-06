@@ -165,9 +165,14 @@ function setupMobileOptimizations() {
   }
 }
 
-// Replace the smoothScrollToBottom function with this improved version
+// Simple, reliable smooth scrolling function
 function smoothScrollToBottom() {
-  // Get the total height of the document
+  // Clear any existing scroll interval
+  if (window.scrollInterval) {
+    clearInterval(window.scrollInterval)
+  }
+
+  // Get document height
   const documentHeight = Math.max(
     document.body.scrollHeight,
     document.body.offsetHeight,
@@ -176,39 +181,40 @@ function smoothScrollToBottom() {
     document.documentElement.offsetHeight,
   )
 
-  // Get the current scroll position
+  // Get viewport height
+  const windowHeight = window.innerHeight
+
+  // Calculate the maximum scroll position
+  const maxScrollPosition = documentHeight - windowHeight
+
+  // Starting position
   const startPosition = window.pageYOffset
 
-  // Calculate the distance to scroll
-  const distance = documentHeight - startPosition
+  // Total distance to scroll
+  const distance = maxScrollPosition - startPosition
 
-  // Set the duration and number of steps for smooth scrolling
-  const duration = 10000 // 10 seconds for very slow scrolling
-  const steps = 200 // More steps for smoother animation
-  const stepTime = duration / steps
+  // If already at the bottom, do nothing
+  if (distance <= 0) return
 
-  let currentStep = 0
+  // Scroll parameters - INCREASED SPEED
+  const scrollAmount = 2 // Scroll 2 pixels at a time (was 1)
+  const scrollDelay = 10 // 10ms delay between scrolls (was 15)
 
-  // Create the interval for smooth scrolling
-  const scrollInterval = setInterval(() => {
-    if (currentStep >= steps) {
-      clearInterval(scrollInterval)
+  // Create the scroll interval
+  window.scrollInterval = setInterval(() => {
+    // Get current position
+    const currentPosition = window.pageYOffset
+
+    // If we've reached the bottom or very close to it, stop scrolling
+    if (currentPosition >= maxScrollPosition - 5) {
+      clearInterval(window.scrollInterval)
+      window.scrollInterval = null
       return
     }
 
-    currentStep++
-
-    // Calculate the next position using easing function
-    const progress = currentStep / steps
-    const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
-    const nextPosition = startPosition + distance * easeInOutQuad(progress)
-
-    // Scroll to the calculated position
-    window.scrollTo({
-      top: nextPosition,
-      behavior: "auto", // Using 'auto' instead of 'smooth' to avoid conflicts
-    })
-  }, stepTime)
+    // Scroll down by the scroll amount
+    window.scrollBy(0, scrollAmount)
+  }, scrollDelay)
 }
 
 // Функция для кнопки воспроизведения музыки и прокрутки
@@ -237,6 +243,12 @@ function setupPlayButton() {
       playButton.classList.remove("playing")
       playButton.innerHTML =
         '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
+
+      // Cancel any ongoing scroll animation when music is paused
+      if (window.scrollInterval) {
+        clearInterval(window.scrollInterval)
+        window.scrollInterval = null
+      }
     }
   })
 }
