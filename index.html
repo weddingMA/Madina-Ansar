@@ -1,123 +1,166 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-  <meta name="description" content="Ансар мен Мадина үйлену тойына шақыру">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300..700;1,300..700&family=Cormorant+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="cat.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="description" content="Ансар мен Мадина үйлену тойына шақыру">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300..700;1,300..700&family=Cormorant+SC:wght@300;400;500;600;700&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="cat.png">
 
-  <meta name="theme-color" content="#8b5e3c">
-  <title>Ансар мен Мадина | Күнтізбе</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles.css">
+<meta name="theme-color" content="#8b5e3c">
+<title>Ансар мен Мадина | Үйлену тойы</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+<div class="page-background"></div>
+<div class="container">
+  
+  <header class="fade" style="animation-delay: 0.2s;">
+    <div class="header-ornament"></div>
+    <img src="3.png" alt="Қазақ өрнегі - Kazakh ornament" width="250" height="83">
     
-    <header class="fade" style="animation-delay: 0.2s;">
-      <img src="3.png" alt="Қазақ өрнегі - Kazakh ornament" width="250" height="83">
-      
-      <!-- Play Button -->
-      <div class="play-button-container">
-        <button id="playButton" class="play-button">
-          <span class="play-icon">♫</span>
-          <span class="play-text">Ойнау</span>
-          <span class="play-sparkle"></span>
-        </button>
-      </div>
-      
-      <!-- Hidden audio element -->
-      <audio id="backgroundMusic" loop>
-        <source src="wedding-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-    </header>
+    <!-- Play Button -->
+    <div class="play-button-container">
+      <button id="playButton" class="play-button">
+        <span class="play-icon">♫</span>
+        <span class="play-text">Ойнау</span>
+        <span class="play-sparkle"></span>
+      </button>
+    </div>
     
-    <main>
-      <!-- Основной текст -->
-      <section class="extra-content fade" style="animation-delay: 0.4s;" id="extraContent">
-        <h2>Құрметті қонақтар!</h2>
-        <p style="font-size: 18px; font-weight: normal;">Сіздерді балаларымыз</p>
+    <!-- Hidden audio element -->
+    <audio id="backgroundMusic" loop>
+      <source src="wedding-music.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </header>
+  
+  <main>
+
+    
+    <!-- Основной текст -->
+    <section class="extra-content fade" style="animation-delay: 0.4s;" id="extraContent">
+      <div class="ornament-corner top-left"></div>
+      <div class="ornament-corner top-right"></div>
       
-        <p ><h2>Ансар мен Мадинаның</h2></p>
-        <p style="font-size: 18px; font-weight: normal;">
-          Үйлену тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз
-        </p>
-      </section>
+      <h2>Құрметті қонақтар!</h2>
+      <p style="font-size: 18px; font-weight: normal;">Сіздерді балаларымыз</p>
+    
+      <p><h2>Ансар мен Мадинаның</h2></p>
+      <p style="font-size: 18px; font-weight: normal;">
+        Үйлену тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз
+      </p>
       
-      <!-- Блок с календарём, таймером и адресом -->
-      <section class="calendar-card fade" style="animation-delay: 0.6s;" aria-labelledby="calendar-title">
-        <div class="calendar-header" id="calendar-title">Мамыр 2025</div>
-        <div class="calendar-body">
-          <div class="calendar-grid" id="weekdaysGrid" aria-hidden="true">
-            <!-- Дни недели -->
-            <div class="weekday">Дү</div>
-            <div class="weekday">Се</div>
-            <div class="weekday">Ср</div>
-            <div class="weekday">Бе</div>
-            <div class="weekday">Жұ</div>
-            <div class="weekday">Се</div>
-            <div class="weekday">Же</div>
-          </div>
-          <div class="calendar-grid" id="calendarGrid" aria-label="Мамыр айының күнтізбесі">
-            <!-- Ячейки календаря создаются через JS -->
-          </div>
-          
-          <div class="countdown fade" style="animation-delay: 0.8s;" aria-live="polite">
-            <div>31 мамыр, 15:00 дейінгі уақыт:</div>
-            <div class="countdown-timer" id="countdownTimer">
-              <div class="countdown-unit">
+      <div class="ornament-corner bottom-left"></div>
+      <div class="ornament-corner bottom-right"></div>
+    </section>
+    
+    <!-- Блок с календарём, таймером и адресом -->
+    <section class="calendar-card fade" style="animation-delay: 0.6s;" aria-labelledby="calendar-title">
+      <div class="calendar-header" id="calendar-title">Мамыр 2025</div>
+      <div class="calendar-body">
+        <div class="calendar-grid" id="weekdaysGrid" aria-hidden="true">
+          <!-- Дни недели -->
+          <div class="weekday">Дү</div>
+          <div class="weekday">Се</div>
+          <div class="weekday">Ср</div>
+          <div class="weekday">Бе</div>
+          <div class="weekday">Жұ</div>
+          <div class="weekday">Се</div>
+          <div class="weekday">Же</div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid" aria-label="Мамыр айының күнтізбесі">
+          <!-- Ячейки календаря создаются через JS -->
+        </div>
+        
+        <div class="countdown fade" style="animation-delay: 0.8s;" aria-live="polite">
+          <div class="countdown-title">31 мамыр, 15:00 дейінгі уақыт:</div>
+          <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-unit">
+              <div class="countdown-circle">
                 <span class="countdown-value" id="days">00</span>
-                <span class="countdown-label">күн</span>
               </div>
-              <div class="countdown-unit">
-                <span class="countdown-value" id="hours">00</span>
-                <span class="countdown-label">сағат</span>
-              </div>
-              <div class="countdown-unit">
-                <span class="countdown-value" id="minutes">00</span>
-                <span class="countdown-label">минут</span>
-              </div>
-              <div class="countdown-unit">
-                <span class="countdown-value" id="seconds">00</span>
-                <span class="countdown-label">секунд</span>
-              </div>
+              <span class="countdown-label">күн</span>
             </div>
-            <div class="address">
+            <div class="countdown-unit">
+              <div class="countdown-circle">
+                <span class="countdown-value" id="hours">00</span>
+              </div>
+              <span class="countdown-label">сағат</span>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-circle">
+                <span class="countdown-value" id="minutes">00</span>
+              </div>
+              <span class="countdown-label">минут</span>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-circle">
+                <span class="countdown-value" id="seconds">00</span>
+              </div>
+              <span class="countdown-label">секунд</span>
+            </div>
+          </div>
+          <div class="address">
+            <div class="address-icon">📍</div>
+            <div class="address-text">
               <strong>Мекен-жай:</strong> Көкшетау қаласы, Назарбаева 211 Е
             </div>
-            <button class="add-to-calendar" id="addToCalendar">
-              2ГИС Мекен-жай
-            </button>
           </div>
+          <button class="add-to-calendar" id="addToCalendar">
+            <span class="calendar-icon">🗺️</span> 2ГИС Мекен-жай
+          </button>
         </div>
-      </section>
-      
-      <!-- Нижнее фото -->
-      <section class="photo-frame fade" style="animation-delay: 1s;">
-        <img src="1.jpg" alt="Ансар мен Мадина" width="400" height="300" loading="lazy">
-      </section>
-      
-      <footer class="fade" style="animation-delay: 1.1s;">
-        Ансар мен Мадина, 2025
-      </footer>
-    </main>
+      </div>
+    </section>
+    
+    <!-- Нижнее фото -->
+    <section class="photo-frame fade" style="animation-delay: 1s;">
+      <div class="photo-container">
+        <img src="1.jpg" alt="Ансар мен Мадина" width="400" height="300" loading="lazy" id="mainPhoto">
+        <div class="photo-overlay">
+          <div class="zoom-icon">🔍</div>
+        </div>
+      </div>
+    </section>
+    
+    <footer class="fade" style="animation-delay: 1.1s;">
+      <div class="footer-content">
+        <div class="footer-ornament"></div>
+        <p>Ансар мен Мадина, 2025</p>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<!-- Photo Modal -->
+<div class="photo-modal" id="photoModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <img src="1.jpg" alt="Ансар мен Мадина" id="modalImage">
   </div>
-  
-  <!-- Кнопка "Наверх" -->
-  <button class="back-to-top" id="backToTop" aria-label="Жоғарыға">
-    ↑
-  </button>
-  
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+</div>
+
+<!-- Кнопка "Наверх" -->
+<button class="back-to-top" id="backToTop" aria-label="Жоғарыға">
+  ↑
+</button>
+
+<!-- Floating hearts -->
+<div class="floating-hearts"></div>
+
+<!-- Falling petals -->
+<div class="falling-petals"></div>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
 

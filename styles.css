@@ -13,6 +13,8 @@
     --border-radius: 12px;
     --gold: #d4af37;
     --gold-light: #f1d78f;
+    --rose-gold: #b76e79;
+    --rose-gold-light: #e7c0c6;
   }
   
   /* Сброс и базовые стили */
@@ -30,11 +32,8 @@
     scroll-behavior: smooth;
   }
   
-  /* Здесь оставляем Montserrat для остальных элементов, если необходимо */
   body {
     font-family: "Montserrat", sans-serif;
-    background: var(--bg-color) url("4.jpg") repeat center center;
-    background-size: 425px auto; /* Smaller background pattern for mobile */
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
@@ -47,6 +46,20 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation; /* Improves touch experience */
+    position: relative;
+    background-color: var(--bg-color);
+  }
+  
+  .page-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color) url("4.jpg") repeat center center;
+    background-size: 425px auto;
+    z-index: -1;
+    opacity: 0.8;
   }
   
   /* Контейнер с полупрозрачным фоном для читаемости содержимого */
@@ -55,9 +68,13 @@
     max-width: 960px;
     margin: 0 auto;
     padding: var(--container-padding);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
   
   /* Заголовок с изображением */
@@ -67,13 +84,100 @@
     position: relative;
   }
   
+  .header-ornament {
+    height: 40px;
+    margin: 0 auto 20px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'><path d='M50,0 C60,10 70,0 80,10 C70,0 60,10 50,0 C40,10 30,0 20,10 C30,0 40,10 50,0' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.7;
+  }
+  
   header img {
-    max-width: 400px; /* Изменено для увеличения изображения */
+    max-width: 400px;
     width: 100%;
     height: auto;
     display: block;
     margin: 0 auto 20px;
     border-radius: 1px;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+  
+  header img:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Names Banner */
+  .names-banner {
+    background: linear-gradient(135deg, rgba(183, 110, 121, 0.1), rgba(139, 94, 60, 0.1));
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
+    margin: var(--section-spacing) auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    max-width: 700px;
+  }
+  
+  .names-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M20,0 Q25,15 40,20 Q25,25 20,40 Q15,25 0,20 Q15,15 20,0' fill='none' stroke='%238b5e3c' stroke-width='1' opacity='0.3'/></svg>");
+    background-size: 80px 80px;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  .names-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .couple-names {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: 1px;
+  }
+  
+  .ampersand {
+    font-family: "Dancing Script", cursive;
+    font-style: italic;
+    font-size: 0.9em;
+    color: var(--rose-gold);
+    display: inline-block;
+    transform: rotate(-5deg);
+    margin: 0 5px;
+    animation: floatAmpersand 3s ease-in-out infinite;
+  }
+  
+  @keyframes floatAmpersand {
+    0%,
+    100% {
+      transform: rotate(-5deg) translateY(0);
+    }
+    50% {
+      transform: rotate(-5deg) translateY(-10px);
+    }
+  }
+  
+  .wedding-date {
+    font-family: "Cormorant Infant", serif;
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    color: var(--accent-dark);
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: 2px;
   }
   
   /* Play Button Styles - Smaller and Simpler */
@@ -300,14 +404,47 @@
     font-optical-sizing: auto;
     font-weight: 400; /* Можно менять от 300 до 700 */
     font-size: clamp(1.1rem, 4vw, 1.3rem);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  /* Пример вариативного класса для Cormorant Infant */
-  .cormorant-infant-regular {
-    font-family: "Cormorant Infant", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+  .extra-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Ornament corners */
+  .ornament-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.6;
+  }
+  
+  .ornament-corner.top-left {
+    top: 10px;
+    left: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M0,0 C15,5 30,15 50,0 C45,15 35,30 50,50 C35,45 20,35 0,50 C5,35 15,20 0,0 Z' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
+  }
+  
+  .ornament-corner.top-right {
+    top: 10px;
+    right: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M50,0 C35,5 20,15 0,0 C5,15 15,30 0,50 C15,45 30,35 50,50 C45,35 35,20 50,0 Z' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
+  }
+  
+  .ornament-corner.bottom-left {
+    bottom: 10px;
+    left: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M0,50 C15,45 30,35 50,50 C45,35 35,20 50,0 C35,5 20,15 0,0 C5,15 15,30 0,50 Z' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
+  }
+  
+  .ornament-corner.bottom-right {
+    bottom: 10px;
+    right: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M50,50 C35,45 20,35 0,50 C5,35 15,20 0,0 C15,5 30,15 50,0 C45,15 35,30 50,50 Z' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
   }
   
   /* Календарь */
@@ -319,6 +456,12 @@
     overflow: hidden;
     box-shadow: var(--shadow);
     background: rgba(255, 250, 240, 0.9);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .calendar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
   
   .calendar-header {
@@ -379,6 +522,19 @@
     color: var(--accent);
     background: rgba(219, 180, 140, 0.2);
     border: 2px solid var(--accent);
+    animation: pulseHighlight 2s infinite;
+  }
+  
+  @keyframes pulseHighlight {
+    0% {
+      box-shadow: 0 0 0 0 rgba(139, 94, 60, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(139, 94, 60, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(139, 94, 60, 0);
+    }
   }
   
   .day.highlight::before {
@@ -406,6 +562,19 @@
     text-align: center;
     font-size: clamp(1rem, 4vw, 1.2rem);
     box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .countdown:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .countdown-title {
+    font-family: "Cormorant Infant", serif;
+    font-size: 1.2rem;
+    color: var(--accent-dark);
+    margin-bottom: 15px;
   }
   
   .countdown-timer {
@@ -421,29 +590,80 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .countdown-unit:hover {
+    transform: translateY(-3px);
+  }
+  
+  .countdown-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-light), var(--accent));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .countdown-circle::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    z-index: 0;
   }
   
   .countdown-value {
     font-size: clamp(1.4rem, 6vw, 1.8rem);
     line-height: 1;
+    position: relative;
+    z-index: 1;
+    color: var(--accent);
+    font-weight: bold;
   }
   
   .countdown-label {
     font-size: clamp(0.7rem, 3vw, 0.8rem);
     text-transform: uppercase;
     margin-top: 5px;
+    color: var(--accent-dark);
   }
   
   .address {
-    margin-top: 15px;
+    margin-top: 20px;
     padding-top: 15px;
     border-top: 1px dashed var(--border);
     font-size: clamp(0.9rem, 3.5vw, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .address-icon {
+    font-size: 1.5rem;
+  }
+  
+  .address-text {
+    text-align: left;
   }
   
   /* Кнопка добавления в календарь */
   .add-to-calendar {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     margin-top: 15px;
     padding: 10px 20px;
     background: var(--accent);
@@ -457,6 +677,23 @@
     transition: all 0.3s ease;
     text-decoration: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .calendar-icon {
+    font-size: 1.2rem;
+  }
+  
+  .add-to-calendar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s ease;
   }
   
   .add-to-calendar:hover,
@@ -464,6 +701,10 @@
     background: var(--accent-light);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .add-to-calendar:hover::before {
+    left: 100%;
   }
   
   /* Фото блок */
@@ -478,51 +719,199 @@
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .photo-frame::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(219, 180, 140, 0.2), transparent);
-    pointer-events: none;
+  .photo-frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
   
-  .photo-frame img {
+  .photo-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .photo-container img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
     display: block;
     margin: 0 auto;
     transition: transform 0.5s ease;
   }
   
-  /* Карта */
-  .map-container {
-    margin: var(--section-spacing) auto;
-    max-width: 420px;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-  }
-  
-  .map-container iframe {
+  .photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 250px;
-    border: none;
-    display: block;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   
-  /* Нижний колонтитул */
+  .zoom-icon {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .photo-container:hover img {
+    transform: scale(1.05);
+  }
+  
+  .photo-container:hover .photo-overlay {
+    opacity: 1;
+  }
+  
+  /* Photo Modal */
+  .photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .photo-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+  }
+  
+  .modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    border: 5px solid white;
+    border-radius: 5px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .close-modal:hover {
+    background: var(--accent-light);
+    transform: scale(1.1);
+  }
+  
+  /* Floating Hearts */
+  .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  @keyframes floatHeart {
+    0% {
+      transform: translateY(100vh) scale(0.5) rotate(-10deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-100px) scale(1.2) rotate(10deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Falling Petals */
+  .falling-petals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  @keyframes fallPetal {
+    0% {
+      transform: translateY(-10vh) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) translateX(100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Footer */
   footer {
     text-align: center;
     margin-top: var(--section-spacing);
-    font-size: clamp(0.8rem, 3vw, 0.9rem);
     color: var(--accent);
+    position: relative;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    position: relative;
+    padding: 20px 0;
+  }
+  
+  .footer-ornament {
+    height: 30px;
+    margin: 0 auto 15px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'><path d='M50,20 C60,10 70,20 80,10 C70,20 60,10 50,20 C40,10 30,20 20,10 C30,20 40,10 50,20' fill='none' stroke='%238b5e3c' stroke-width='1'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.7;
+  }
+  
+  footer p {
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    margin: 5px 0;
+  }
+  
+  .footer-quote {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    color: var(--accent-dark);
+    margin-top: 10px;
   }
   
   /* Кнопка "Наверх" */
@@ -555,6 +944,8 @@
   .back-to-top:hover,
   .back-to-top:active {
     background: var(--accent-light);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   
   /* Адаптивность для мобильных устройств */
@@ -584,7 +975,7 @@
     }
   
     .add-to-calendar {
-      display: block;
+      display: flex;
       width: 100%;
       padding: 12px;
     }
@@ -604,34 +995,13 @@
       margin-right: 6px;
     }
   
-    /* Remove the bounce animation */
-    .play-button-container {
-      animation: none;
+    .countdown-circle {
+      width: 50px;
+      height: 50px;
     }
   
-    .play-button:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 10px rgba(139, 94, 60, 0.3);
-    }
-  
-    .play-icon {
-      font-size: 1.6rem;
-      margin-right: 15px;
-    }
-  
-    /* Add a subtle bounce animation to draw attention to the button */
-    @keyframes buttonBounce {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-  
-    .play-button-container {
-      animation: buttonBounce 3s ease-in-out 1s infinite;
+    .countdown-value {
+      font-size: 1.2rem;
     }
   }
   
@@ -671,7 +1041,10 @@
   
     body {
       background-color: var(--bg-color);
-      background-image: none; /* Убираем фоновый узор в темной теме */
+    }
+  
+    .page-background {
+      opacity: 0.5;
     }
   
     .container {
@@ -689,6 +1062,10 @@
   
     .day.highlight {
       background: rgba(139, 94, 60, 0.4);
+    }
+  
+    .countdown-circle::before {
+      background: var(--light-color);
     }
   }
   
@@ -708,8 +1085,13 @@
       gap: 5px;
     }
   
+    .countdown-circle {
+      width: 40px;
+      height: 40px;
+    }
+  
     .countdown-value {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   
     .countdown-label {
