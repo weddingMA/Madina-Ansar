@@ -193,7 +193,7 @@ header img {
 .day.highlight::before {
     content: "";
     position: absolute;
-    top: 0px;
+    top: -5px;
     left: 50%;
     transform: translateX(-50%);
     width: 50px;
@@ -376,7 +376,7 @@ footer {
     }
     
     .extra-content {
-        text-align: center;
+        text-align: left;
     }
     
     .photo-frame {
