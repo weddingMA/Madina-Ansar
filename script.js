@@ -165,6 +165,52 @@ function setupMobileOptimizations() {
   }
 }
 
+// Replace the smoothScrollToBottom function with this improved version
+function smoothScrollToBottom() {
+  // Get the total height of the document
+  const documentHeight = Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight,
+  )
+
+  // Get the current scroll position
+  const startPosition = window.pageYOffset
+
+  // Calculate the distance to scroll
+  const distance = documentHeight - startPosition
+
+  // Set the duration and number of steps for smooth scrolling
+  const duration = 10000 // 10 seconds for very slow scrolling
+  const steps = 200 // More steps for smoother animation
+  const stepTime = duration / steps
+
+  let currentStep = 0
+
+  // Create the interval for smooth scrolling
+  const scrollInterval = setInterval(() => {
+    if (currentStep >= steps) {
+      clearInterval(scrollInterval)
+      return
+    }
+
+    currentStep++
+
+    // Calculate the next position using easing function
+    const progress = currentStep / steps
+    const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
+    const nextPosition = startPosition + distance * easeInOutQuad(progress)
+
+    // Scroll to the calculated position
+    window.scrollTo({
+      top: nextPosition,
+      behavior: "auto", // Using 'auto' instead of 'smooth' to avoid conflicts
+    })
+  }, stepTime)
+}
+
 // Функция для кнопки воспроизведения музыки и прокрутки
 function setupPlayButton() {
   const playButton = document.getElementById("playButton")
@@ -177,7 +223,11 @@ function setupPlayButton() {
         .play()
         .then(() => {
           playButton.classList.add("playing")
-          playButton.innerHTML = '<span class="play-icon">♫</span> Тоқтату'
+          playButton.innerHTML =
+            '<span class="play-icon">♫</span><span class="play-text">Тоқтату</span><span class="play-sparkle"></span>'
+
+          // Плавная прокрутка к концу страницы
+          smoothScrollToBottom()
         })
         .catch((error) => {
           console.error("Ошибка воспроизведения аудио:", error)
@@ -185,12 +235,9 @@ function setupPlayButton() {
     } else {
       backgroundMusic.pause()
       playButton.classList.remove("playing")
-      playButton.innerHTML = '<span class="play-icon">♫</span> Ойнау'
+      playButton.innerHTML =
+        '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
     }
-
-    // Плавная прокрутка к основному контенту
-    const extraContent = document.getElementById("extraContent")
-    extraContent.scrollIntoView({ behavior: "smooth", block: "start" })
   })
 }
 
