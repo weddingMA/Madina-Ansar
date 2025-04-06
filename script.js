@@ -339,27 +339,15 @@ function setupPlayButton() {
               playButton.classList.add("playing")
               playButton.innerHTML =
                 '<span class="play-icon">♫</span><span class="play-text">Тоқтату</span><span class="play-sparkle"></span>'
-
-              // Плавная прокрутка к концу страницы
-              smoothScrollToBottom()
             })
             .catch((error) => {
               console.error("Ошибка воспроизведения аудио:", error)
-
-              // Still scroll even if audio fails (common on mobile)
-              smoothScrollToBottom()
             })
         } else {
           backgroundMusic.pause()
           playButton.classList.remove("playing")
           playButton.innerHTML =
             '<span class="play-icon">♫</span><span class="play-text">Ойнау</span><span class="play-sparkle"></span>'
-
-          // Cancel any ongoing scroll animation when music is paused
-          if (window.scrollInterval) {
-            clearInterval(window.scrollInterval)
-            window.scrollInterval = null
-          }
         }
       },
       { passive: false },
