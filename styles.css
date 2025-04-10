@@ -163,7 +163,15 @@ header img:hover {
 h2 {
   color: #8b5e3c;
 }
-
+h3 {
+  color: #8b5e3c;
+}
+h1 {
+  color: #8b5e3c;
+}
+h4 {
+  color: #8b5e3c;
+}
 @keyframes floatAmpersand {
   0%,
   100% {
